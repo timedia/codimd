@@ -175,7 +175,8 @@ module.exports = {
     ],
     cover: [
       'babel-polyfill',
-      path.join(__dirname, 'public/js/cover.js')
+      path.join(__dirname, 'public/js/cover.js'),
+      path.join(__dirname, 'public/js/notes.js')
     ],
     'cover-styles-pack': [
       path.join(__dirname, 'node_modules/bootstrap/dist/css/bootstrap.min.css'),
