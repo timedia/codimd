@@ -7,11 +7,11 @@
                     <h3 class="masthead-brand"></h3>
                     <nav>
                         <ul class="nav masthead-nav">
-                            <li class="ui-home<% if(!signin) { %> active<% } %>"><a href="#"><%= __('Intro') %></a>
+                            <li class="ui-notes active"><a href="#"><%= __('Notes') %></a>
                             </li>
-                            <li class="ui-history<% if(signin) { %> active<% } %>"><a href="#"><%= __('History') %></a>
+                            <li class="ui-history"><a href="#"><%= __('History') %></a>
                             </li>
-                            <li class="ui-notes"><a href="#"><%= __('Notes') %></a>
+                            <li class="ui-home"><a href="#"><%= __('Intro') %></a>
                             </li>
                             <div class="ui-signin" style="float: right; margin-top: 8px;<% if(signin) { %> display: none;<% } %>">
                                 <% if(allowAnonymous) { %>
@@ -40,7 +40,67 @@
                 </div>
             </div>
 
-            <div id="home" class="section"<% if(signin) { %> style="display:none;"<% } %>>
+            <div id="notes" class="section">
+                <form class="form-inline">
+                    <div class="form-group" style="vertical-align: bottom;">
+                        <input class="form-control ui-use-note-tags" placeholder="<%= __('Select tags...') %>" />
+                    </div>
+                    <div class="form-group">
+                        <input class="search search-notes form-control" placeholder="<%= __('Search keyword...') %>" />
+                    </div>
+                    <a href="#" class="sort btn btn-default" data-sort="text" title="<%= __('Sort by title') %>">
+                    <%= __('Title') %>
+                    </a>
+                    <a href="#" class="sort btn btn-default" data-sort="timestamp" title="<%= __('Sort by time') %>">
+                    <%= __('Time') %>
+                    </a>
+                    <a href="#" class="btn btn-default ui-refresh-notes" title="<%= __('Refresh notes') %>"><i class="fa fa-refresh"></i></a>
+                </form>
+                <h4 class="ui-nonotes" style="display:none;">
+                    <%= __('No notes') %>
+                </h4>
+                <ul id="notes-list" class="list">
+                </ul>
+                <ul class="pagination"></ul>
+            </div>
+
+            <div id="history" class="section" style="display:none;">
+                <div class="ui-signin"<% if(signin) { %> style="display:none;"<% } %>>
+                    <p><%= __('Below is the history from browser') %></p>
+                </div>
+                <br>
+                <form class="form-inline">
+                    <div class="form-group" style="vertical-align: bottom;">
+                        <input class="form-control ui-use-tags" placeholder="<%= __('Select tags...') %>" />
+                    </div>
+                    <div class="form-group">
+                        <input class="search search-history form-control" placeholder="<%= __('Search keyword...') %>" />
+                    </div>
+                    <a href="#" class="sort btn btn-default" data-sort="text" title="<%= __('Sort by title') %>">
+                    <%= __('Title') %>
+                    </a>
+                    <a href="#" class="sort btn btn-default" data-sort="timestamp" title="<%= __('Sort by time') %>">
+                    <%= __('Time') %>
+                    </a>
+                    <span class="hidden-xs hidden-sm">
+                        <a href="#" class="btn btn-default ui-save-history" title="<%= __('Export history') %>"><i class="fa fa-save"></i></a>
+                        <span class="btn btn-default btn-file ui-open-history" title="<%= __('Import history') %>">
+                            <i class="fa fa-folder-open-o"></i><input type="file" />
+                        </span>
+                    <a href="#" class="btn btn-default ui-clear-history" title="<%= __('Clear history') %>" data-toggle="modal" data-target=".delete-history-modal"><i class="fa fa-trash-o"></i></a>
+                    </span>
+                    <a href="#" class="btn btn-default ui-refresh-history" title="<%= __('Refresh history') %>"><i class="fa fa-refresh"></i></a>
+                </form>
+                <h4 class="ui-nohistory" style="display:none;">
+                    <%= __('No history') %>
+                </h4>
+                <a href="#" class="btn btn-primary ui-import-from-browser" style="display:none;"><%= __('Import from browser') %></a>
+                <ul id="history-list" class="list">
+                </ul>
+                <ul class="pagination"></ul>
+            </div>
+
+            <div id="home" class="section" style="display:none;">
                 <div class="inner cover">
                     <h1 class="cover-heading"><i class="fa fa-file-text"></i> CodiMD</h1>
                     <p class="lead">
@@ -86,66 +146,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div id="notes" class="section" style="display:none;">
-                <form class="form-inline">
-                    <div class="form-group" style="vertical-align: bottom;">
-                        <input class="form-control ui-use-note-tags" placeholder="<%= __('Select tags...') %>" />
-                    </div>
-                    <div class="form-group">
-                        <input class="search search-notes form-control" placeholder="<%= __('Search keyword...') %>" />
-                    </div>
-                    <a href="#" class="sort btn btn-default" data-sort="text" title="<%= __('Sort by title') %>">
-                    <%= __('Title') %>
-                    </a>
-                    <a href="#" class="sort btn btn-default" data-sort="timestamp" title="<%= __('Sort by time') %>">
-                    <%= __('Time') %>
-                    </a>
-                    <a href="#" class="btn btn-default ui-refresh-notes" title="<%= __('Refresh notes') %>"><i class="fa fa-refresh"></i></a>
-                </form>
-                <h4 class="ui-nonotes" style="display:none;">
-                    <%= __('No notes') %>
-                </h4>
-                <ul id="notes-list" class="list">
-                </ul>
-                <ul class="pagination"></ul>
-            </div>
-
-            <div id="history" class="section"<% if(!signin) { %> style="display:none;"<% } %>>
-                <div class="ui-signin"<% if(signin) { %> style="display:none;"<% } %>>
-                    <p><%= __('Below is the history from browser') %></p>
-                </div>
-                <br>
-                <form class="form-inline">
-                    <div class="form-group" style="vertical-align: bottom;">
-                        <input class="form-control ui-use-tags" placeholder="<%= __('Select tags...') %>" />
-                    </div>
-                    <div class="form-group">
-                        <input class="search search-history form-control" placeholder="<%= __('Search keyword...') %>" />
-                    </div>
-                    <a href="#" class="sort btn btn-default" data-sort="text" title="<%= __('Sort by title') %>">
-                    <%= __('Title') %>
-                    </a>
-                    <a href="#" class="sort btn btn-default" data-sort="timestamp" title="<%= __('Sort by time') %>">
-                    <%= __('Time') %>
-                    </a>
-                    <span class="hidden-xs hidden-sm">
-                        <a href="#" class="btn btn-default ui-save-history" title="<%= __('Export history') %>"><i class="fa fa-save"></i></a>
-                        <span class="btn btn-default btn-file ui-open-history" title="<%= __('Import history') %>">
-                            <i class="fa fa-folder-open-o"></i><input type="file" />
-                        </span>
-                    <a href="#" class="btn btn-default ui-clear-history" title="<%= __('Clear history') %>" data-toggle="modal" data-target=".delete-history-modal"><i class="fa fa-trash-o"></i></a>
-                    </span>
-                    <a href="#" class="btn btn-default ui-refresh-history" title="<%= __('Refresh history') %>"><i class="fa fa-refresh"></i></a>
-                </form>
-                <h4 class="ui-nohistory" style="display:none;">
-                    <%= __('No history') %>
-                </h4>
-                <a href="#" class="btn btn-primary ui-import-from-browser" style="display:none;"><%= __('Import from browser') %></a>
-                <ul id="history-list" class="list">
-                </ul>
-                <ul class="pagination"></ul>
             </div>
 
             <div class="mastfoot">
