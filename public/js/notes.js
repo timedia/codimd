@@ -10,13 +10,14 @@ import List from 'list.js'
 import S from 'string'
 
 const options = {
-  valueNames: ['id', 'text', 'timestamp', 'time', 'tags'],
+  valueNames: ['id', 'text', 'timestamp', 'time', 'tags', 'perm'],
   item: `<li class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
           <span class="id" style="display:none;"></span>
           <a href="#">
             <div class="item">
               <div class="content">
                 <h4 class="text"></h4>
+                <div><p class="perm" style="margin-bottom: 0;"></p></div>
                 <p>
                   <i class="timestamp" style="display:none;"></i>
                   <i class="time"></i>
@@ -42,6 +43,18 @@ $('.ui-notes').click(() => {
 
 parseNotes(noteList, parseNotesCallback)
 
+const PERMS =     ["freely", "editable" , "limited" , "locked" , "protected" ,"private"]
+const PERM_ICON = ["fa-leaf","fa-shield","fa-id-card","fa-lock","fa-umbrella","fa-hand-stop-o"]
+
+
+function formatPermission(str){
+	let idx = PERMS.indexOf(str)
+	if (idx === -1){
+		return "??"
+	}
+	return `<i class="fa ${PERM_ICON[idx]} fa-fw"></i> ${str}`
+}
+
 function parseToNotes (list, notes, callback) {
   if (!callback) return
   else if (!list || !notes) callback(list, notes)
@@ -51,6 +64,7 @@ function parseToNotes (list, notes, callback) {
       const timestamp = (typeof notes[i].time === 'number' ? moment(notes[i].time) : moment(notes[i].time, 'MMMM Do YYYY, h:mm:ss a'))
       notes[i].timestamp = timestamp.valueOf()
       notes[i].time = timestamp.format('llll')
+      notes[i].perm =  formatPermission(notes[i].perm)
       // prevent XSS
       notes[i].text = S(notes[i].text).escapeHTML().s
       notes[i].tags = (notes[i].tags && notes[i].tags.length > 0) ? S(notes[i].tags).escapeHTML().s.split(',') : []
