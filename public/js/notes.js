@@ -10,14 +10,14 @@ import List from 'list.js'
 import S from 'string'
 
 const options = {
-  valueNames: ['id', 'text', 'timestamp', 'time', 'tags', 'perm'],
+  valueNames: ['id', 'text', 'timestamp', 'time', 'tags', 'permission'],
   item: `<li class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
           <span class="id" style="display:none;"></span>
           <a href="#">
             <div class="item">
               <div class="content">
                 <h4 class="text"></h4>
-                <div><p class="perm" style="margin-bottom: 0;"></p></div>
+                <div><p class="permission" style="margin-bottom: 0;"></p></div>
                 <p>
                   <i class="timestamp" style="display:none;"></i>
                   <i class="time"></i>
@@ -64,7 +64,7 @@ function parseToNotes (list, notes, callback) {
       const timestamp = (typeof notes[i].time === 'number' ? moment(notes[i].time) : moment(notes[i].time, 'MMMM Do YYYY, h:mm:ss a'))
       notes[i].timestamp = timestamp.valueOf()
       notes[i].time = timestamp.format('llll')
-      notes[i].perm =  formatPermission(notes[i].perm)
+      notes[i].permission =  formatPermission(notes[i].permission)
       // prevent XSS
       notes[i].text = S(notes[i].text).escapeHTML().s
       notes[i].tags = (notes[i].tags && notes[i].tags.length > 0) ? S(notes[i].tags).escapeHTML().s.split(',') : []
