@@ -48,11 +48,11 @@ const PERM_ICON = ["fa-leaf","fa-shield","fa-id-card","fa-lock","fa-umbrella","f
 
 
 function formatPermission(str){
-	let idx = PERMS.indexOf(str)
-	if (idx === -1){
-		return "??"
-	}
-	return `<i class="fa ${PERM_ICON[idx]} fa-fw"></i> ${str}`
+  let idx = PERMS.indexOf(str)
+  if (idx === -1){
+    return "??"
+  }
+  return `<i class="fa ${PERM_ICON[idx]} fa-fw"></i> ${str}`
 }
 
 function parseToNotes (list, notes, callback) {
