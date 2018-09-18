@@ -43,8 +43,8 @@ $('.ui-notes').click(() => {
 
 parseNotes(noteList, parseNotesCallback)
 
-const PERMS =     ["freely", "editable" , "limited" , "locked" , "protected" ,"private"]
-const PERM_ICON = ["fa-leaf","fa-shield","fa-id-card","fa-lock","fa-umbrella","fa-hand-stop-o"]
+const PERMS =     ["freely" , "editable" , "limited"   , "locked" , "protected"  , "private"]
+const PERM_ICON = ["fa-leaf", "fa-shield", "fa-id-card", "fa-lock", "fa-umbrella", "fa-hand-stop-o"]
 
 
 function formatPermission(str){
