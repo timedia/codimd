@@ -113,7 +113,7 @@ if (config.csp.enable) {
 }
 
 i18n.configure({
-  locales: ['en', 'zh-CN', 'zh-TW', 'fr', 'de', 'ja', 'es', 'ca', 'el', 'pt', 'it', 'tr', 'ru', 'nl', 'hr', 'pl', 'uk', 'hi', 'sv', 'eo', 'da', 'ko'],
+  locales: ['en', 'zh-CN', 'zh-TW', 'fr', 'de', 'ja', 'es', 'ca', 'el', 'pt', 'it', 'tr', 'ru', 'nl', 'hr', 'pl', 'uk', 'hi', 'sv', 'eo', 'da', 'ko', 'id'],
   cookie: 'locale',
   directory: path.join(__dirname, '/locales'),
   updateFiles: config.updateI18nFiles
@@ -205,11 +205,21 @@ io.sockets.on('connection', realtime.connection)
 
 // listen
 function startListen () {
-  server.listen(config.port, function () {
+  var address
+  var listenCallback = function () {
     var schema = config.useSSL ? 'HTTPS' : 'HTTP'
-    logger.info('%s Server listening at port %d', schema, config.port)
+    logger.info('%s Server listening at %s', schema, address)
     realtime.maintenance = false
-  })
+  }
+
+  // use unix domain socket if 'path' is specified
+  if (config.path) {
+    address = config.path
+    server.listen(config.path, listenCallback)
+  } else {
+    address = config.host + ':' + config.port
+    server.listen(config.port, config.host, listenCallback)
+  }
 }
 
 // sync db then start listen
