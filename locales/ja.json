@@ -100,17 +100,5 @@
 	"Select From Available Snippets": "スニペットを一覧から選択してください",
 	"OR": "または",
 	"Export to Snippet": "スニペットにエクスポート",
-	"Select Visibility Level": "公開範囲を選んでください",
-	"Export user data": "Export user data",
-	"Delete user": "Delete user",
-	"Follow us on %s and %s.": "Follow us on %s and %s.",
-	"Do you really want to delete your user account?": "Do you really want to delete your user account?",
-	"This will delete your account, all notes that are owned by you and remove all references to your account from other notes.": "This will delete your account, all notes that are owned by you and remove all references to your account from other notes.",
-	"Night Theme": "Night Theme",
-	"Do you really want to delete this note?": "Do you really want to delete this note?",
-	"All users will lose their connection.": "All users will lose their connection.",
-	"Meet us on %s": "Meet us on %s",
-	"Refresh notes": "記事一覧再取得",
-	"No notes": "記事はありません",
-	"Notes": "記事"
+	"Select Visibility Level": "公開範囲を選んでください"
 }
