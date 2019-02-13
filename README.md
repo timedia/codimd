@@ -7,7 +7,6 @@ CodiMD
 [![#CodiMD on matrix.org][matrix.org-image]][matrix.org-url]
 [![build status][travis-image]][travis-url]
 [![version][github-version-badge]][github-release-page]
-[![Help Contribute to Open Source][codetriage-image]][codetriage-url]
 [![POEditor][poeditor-image]][poeditor-url]
 
 CodiMD lets you create real-time collaborative markdown notes on all platforms.
@@ -29,6 +28,7 @@ Thanks for using! :smile:
   - [Heroku Deployment](#heroku-deployment)
   - [Kubernetes](#kubernetes)
   - [CodiMD by docker container](#codimd-by-docker-container)
+  - [Cloudron](#cloudron)
 - [Upgrade](#upgrade)
   - [Native setup](#native-setup)
 - [Configuration](#configuration)
@@ -100,7 +100,7 @@ To install use `helm install stable/hackmd`.
 For all further details, please check out the offical CodiMD  [K8s helm chart](https://github.com/kubernetes/charts/tree/master/stable/hackmd).
 
 ## CodiMD by docker container
-[![Try in PWD](https://cdn.rawgit.com/play-with-docker/stacks/cff22438/assets/images/button.png)](http://play-with-docker.com?stack=https://github.com/hackmdio/docker-hackmd/raw/master/docker-compose.yml&stack_name=codimd)
+[![Try in PWD](https://cdn.rawgit.com/play-with-docker/stacks/cff22438/assets/images/button.png)](http://play-with-docker.com?stack=https://github.com/hackmdio/codimd-container/raw/master/docker-compose.yml&stack_name=codimd)
 
 
 **Debian-based version:**
@@ -115,11 +115,17 @@ For all further details, please check out the offical CodiMD  [K8s helm chart](h
 The easiest way to setup CodiMD using docker are using the following three commands:
 
 ```console
-git clone https://github.com/hackmdio/docker-hackmd.git
-cd docker-codimd
+git clone https://github.com/hackmdio/codimd-container.git
+cd codimd-container
 docker-compose up
 ```
-Read more about it in the [docker repository…](https://github.com/hackmdio/docker-hackmd)
+Read more about it in the [container repository…](https://github.com/hackmdio/codimd-container)
+
+## Cloudron
+
+Install CodiMD on [Cloudron](https://cloudron.io):
+
+[![Install](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=io.hackmd.cloudronapp)
 
 # Upgrade
 
@@ -170,7 +176,9 @@ There are some config settings you need to change in the files below.
 | `DEBUG` | `true` or `false` | set debug mode; show more logs |
 | `CMD_DOMAIN` | `codimd.org` | domain name |
 | `CMD_URL_PATH` | `codimd` | sub URL path, like `www.example.com/<URL_PATH>` |
+| `CMD_HOST` | `localhost` | host to listen on |
 | `CMD_PORT` | `80` | web app port |
+| `CMD_PATH` | `/var/run/codimd.sock` | path to UNIX domain socket to listen on (if specified, `CMD_HOST` and `CMD_PORT` are ignored) |
 | `CMD_ALLOW_ORIGIN` | `localhost, codimd.org` | domain name whitelist (use comma to separate) |
 | `CMD_PROTOCOL_USESSL` | `true` or `false` | set to use SSL protocol for resources path (only applied when domain is set) |
 | `CMD_URL_ADDPORT` | `true` or `false` | set to add port on callback URL (ports `80` or `443` won't be applied) (only applied when domain is set) |
@@ -192,7 +200,8 @@ There are some config settings you need to change in the files below.
 | `CMD_GITLAB_BASEURL` | no example | GitLab authentication endpoint, set to use other endpoint than GitLab.com (optional) |
 | `CMD_GITLAB_CLIENTID` | no example | GitLab API client id |
 | `CMD_GITLAB_CLIENTSECRET` | no example | GitLab API client secret |
-| `CMD_MATTERMOST_BASEURL` | no example | Mattermost authentication endpoint |
+| `CMD_GITLAB_VERSION` | no example | GitLab API version (v3 or v4) |
+| `CMD_MATTERMOST_BASEURL` | no example | Mattermost authentication endpoint for versions below 5.0. For Mattermost version 5.0 and above, see [guide](docs/guides/auth/mattermost-self-hosted.md). |
 | `CMD_MATTERMOST_CLIENTID` | no example | Mattermost API client id |
 | `CMD_MATTERMOST_CLIENTSECRET` | no example | Mattermost API client secret |
 | `CMD_DROPBOX_CLIENTID` | no example | Dropbox API client id |
@@ -252,7 +261,9 @@ There are some config settings you need to change in the files below.
 | `debug` | `true` or `false` | set debug mode, show more logs |
 | `domain` | `localhost` | domain name |
 | `urlPath` | `codimd` | sub URL path, like `www.example.com/<urlpath>` |
+| `host` | `localhost` | host to listen on |
 | `port` | `80` | web app port |
+| `path` | `/var/run/codimd.sock` | path to UNIX domain socket to listen on (if specified, `host` and `port` are ignored) |
 | `allowOrigin` | `['localhost']` | domain name whitelist |
 | `useSSL` | `true` or `false` | set to use SSL server (if `true`, will auto turn on `protocolUseSSL`) |
 | `hsts` | `{"enable": true, "maxAgeSeconds": 31536000, "includeSubdomains": true, "preload": true}` | [HSTS](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security) options to use with HTTPS (default is the example value, max age is a year) |
@@ -354,7 +365,5 @@ See more at [http://operational-transformation.github.io/](http://operational-tr
 [github-release-page]: https://github.com/hackmdio/codimd/releases
 [standardjs-image]: https://cdn.rawgit.com/feross/standard/master/badge.svg
 [standardjs-url]: https://github.com/feross/standard
-[codetriage-image]: https://www.codetriage.com/hackmdio/codimd/badges/users.svg
-[codetriage-url]: https://www.codetriage.com/hackmdio/codimd
 [poeditor-image]: https://img.shields.io/badge/POEditor-translate-blue.svg
 [poeditor-url]: https://poeditor.com/join/project/1OpGjF2Jir
